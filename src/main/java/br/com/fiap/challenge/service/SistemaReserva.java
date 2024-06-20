@@ -1,10 +1,6 @@
 package br.com.fiap.challenge.service;
 
-import br.com.fiap.challenge.model.Aluno;
-import br.com.fiap.challenge.model.Aula;
-import br.com.fiap.challenge.model.Professor;
-import br.com.fiap.challenge.model.Reserva;
-
+import br.com.fiap.challenge.model.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +10,14 @@ public class SistemaReserva {
     private List<Professor> professores;
     private List<Aula> aulas;
     private List<Reserva> reservas;
+    private List<Sala> salas;
 
     public SistemaReserva() {
         this.alunos = new ArrayList<>();
         this.professores = new ArrayList<>();
         this.aulas = new ArrayList<>();
         this.reservas = new ArrayList<>();
+        this.salas = new ArrayList<>();
     }
 
     public void adicionarAluno(Aluno aluno) {
@@ -32,6 +30,10 @@ public class SistemaReserva {
 
     public void adicionarAula(Aula aula) {
         aulas.add(aula);
+    }
+
+    public void adicionarSala(Sala sala) {
+        salas.add(sala);
     }
 
     public void fazerReserva(Aluno aluno, Aula aula, LocalDateTime dataHora) {
@@ -56,5 +58,8 @@ public class SistemaReserva {
     public List<Reserva> getReservas() {
         return reservas;
     }
-}
 
+    public List<Sala> getSalas() {
+        return salas;
+    }
+}

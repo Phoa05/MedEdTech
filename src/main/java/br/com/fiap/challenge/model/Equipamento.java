@@ -25,4 +25,3 @@ public class Equipamento {
         this.descricao = descricao;
     }
 }
-

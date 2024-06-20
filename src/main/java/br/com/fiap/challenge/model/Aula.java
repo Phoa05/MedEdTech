@@ -8,11 +8,15 @@ public class Aula {
     private String descricao;
     private Professor professor;
     private List<Reserva> reservas;
+    private Horario horario;
+    private Sala sala;
 
-    public Aula(String titulo, String descricao, Professor professor) {
+    public Aula(String titulo, String descricao, Professor professor, Horario horario, Sala sala) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.professor = professor;
+        this.horario = horario;
+        this.sala = sala;
         this.reservas = new ArrayList<>();
     }
 
@@ -40,6 +44,22 @@ public class Aula {
         this.professor = professor;
     }
 
+    public Horario getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Horario horario) {
+        this.horario = horario;
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
     public void adicionarReserva(Reserva reserva) {
         reservas.add(reserva);
     }
@@ -52,4 +72,3 @@ public class Aula {
         this.reservas = reservas;
     }
 }
-

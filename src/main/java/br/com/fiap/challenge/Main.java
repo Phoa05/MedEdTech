@@ -1,8 +1,6 @@
 package br.com.fiap.challenge;
 
-import br.com.fiap.challenge.model.Aluno;
-import br.com.fiap.challenge.model.Aula;
-import br.com.fiap.challenge.model.Professor;
+import br.com.fiap.challenge.model.*;
 import br.com.fiap.challenge.service.Gamificacao;
 import br.com.fiap.challenge.service.SistemaReserva;
 
@@ -15,7 +13,7 @@ public class Main {
         SistemaReserva sistema = new SistemaReserva();
         Scanner scanner = new Scanner(System.in);
 
-        // Criar professores e alunos
+        // Criar professores, alunos e salas
         Professor prof1 = new Professor("Dr. Silva", "dr.silva@fmusp.br");
         sistema.adicionarProfessor(prof1);
 
@@ -23,6 +21,9 @@ public class Main {
         Aluno aluno2 = new Aluno("João", "joao@fmusp.br");
         sistema.adicionarAluno(aluno1);
         sistema.adicionarAluno(aluno2);
+
+        Sala sala1 = new Sala("Sala A", "Edifício 1, Andar 2");
+        sistema.adicionarSala(sala1);
 
         boolean executando = true;
         while (executando) {
@@ -43,7 +44,20 @@ public class Main {
                     String titulo = scanner.nextLine();
                     System.out.print("Descrição da Aula: ");
                     String descricao = scanner.nextLine();
-                    Aula novaAula = new Aula(titulo, descricao, prof1);
+                    System.out.print("Data e Hora de Início (YYYY-MM-DDTHH:MM): ");
+                    LocalDateTime inicio = LocalDateTime.parse(scanner.nextLine());
+                    System.out.print("Data e Hora de Fim (YYYY-MM-DDTHH:MM): ");
+                    LocalDateTime fim = LocalDateTime.parse(scanner.nextLine());
+                    Horario horario = new Horario(inicio, fim);
+                    System.out.println("Escolha uma sala:");
+                    List<Sala> salas = sistema.getSalas();
+                    for (int i = 0; i < salas.size(); i++) {
+                        System.out.println((i + 1) + ". " + salas.get(i).getNome() + " - " + salas.get(i).getLocalizacao());
+                    }
+                    int escolhaSala = scanner.nextInt() - 1;
+                    scanner.nextLine(); // Limpar o buffer
+                    Sala salaSelecionada = salas.get(escolhaSala);
+                    Aula novaAula = new Aula(titulo, descricao, prof1, horario, salaSelecionada);
                     sistema.adicionarAula(novaAula);
                     System.out.println("Aula marcada com sucesso!");
                     break;
