@@ -4,7 +4,11 @@ import br.com.fiap.challenge.model.*;
 import br.com.fiap.challenge.service.Gamificacao;
 import br.com.fiap.challenge.service.SistemaReserva;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -44,10 +48,12 @@ public class Main {
                     String titulo = scanner.nextLine();
                     System.out.print("Descrição da Aula: ");
                     String descricao = scanner.nextLine();
-                    System.out.print("Data e Hora de Início (YYYY-MM-DDTHH:MM): ");
-                    LocalDateTime inicio = LocalDateTime.parse(scanner.nextLine());
-                    System.out.print("Data e Hora de Fim (YYYY-MM-DDTHH:MM): ");
-                    LocalDateTime fim = LocalDateTime.parse(scanner.nextLine());
+                    LocalDate dataInicio = lerData(scanner, "Digite a data de início (dd/MM/yyyy): ");
+                    LocalTime horaInicio = lerHora(scanner, "Digite a hora de início (HH:mm): ");
+                    LocalDate dataFim = lerData(scanner, "Digite a data de fim (dd/MM/yyyy): ");
+                    LocalTime horaFim = lerHora(scanner, "Digite a hora de fim (HH:mm): ");
+                    LocalDateTime inicio = LocalDateTime.of(dataInicio, horaInicio);
+                    LocalDateTime fim = LocalDateTime.of(dataFim, horaFim);
                     Horario horario = new Horario(inicio, fim);
                     System.out.println("Escolha uma sala:");
                     List<Sala> salas = sistema.getSalas();
@@ -95,9 +101,9 @@ public class Main {
                     int escolhaAula = scanner.nextInt() - 1;
                     scanner.nextLine(); // Limpar o buffer
                     Aula aulaSelecionada = aulas.get(escolhaAula);
-                    System.out.print("Data e Hora da Reserva (YYYY-MM-DDTHH:MM): ");
-                    String dataHoraString = scanner.nextLine();
-                    LocalDateTime dataHora = LocalDateTime.parse(dataHoraString);
+                    LocalDate dataReserva = lerData(scanner, "Digite a data da reserva (dd/MM/yyyy): ");
+                    LocalTime horaReserva = lerHora(scanner, "Digite a hora da reserva (HH:mm): ");
+                    LocalDateTime dataHora = LocalDateTime.of(dataReserva, horaReserva);
                     sistema.fazerReserva(alunoSelecionado, aulaSelecionada, dataHora);
                     System.out.println("Aula marcada com sucesso!");
                     break;
@@ -126,5 +132,31 @@ public class Main {
         }
 
         scanner.close();
+    }
+
+    private static LocalDate lerData(Scanner scanner, String mensagem) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        while (true) {
+            System.out.print(mensagem);
+            String input = scanner.nextLine();
+            try {
+                return LocalDate.parse(input, dateFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Data inválida. Por favor, tente novamente.");
+            }
+        }
+    }
+
+    private static LocalTime lerHora(Scanner scanner, String mensagem) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        while (true) {
+            System.out.print(mensagem);
+            String input = scanner.nextLine();
+            try {
+                return LocalTime.parse(input, timeFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Hora inválida. Por favor, tente novamente.");
+            }
+        }
     }
 }
