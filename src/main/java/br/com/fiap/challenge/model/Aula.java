@@ -20,6 +20,9 @@ public class Aula {
         this.reservas = new ArrayList<>();
     }
 
+    public Aula(String titulo, String descricao, Professor prof1) {
+    }
+
     public String getTitulo() {
         return titulo;
     }

@@ -1,65 +1,48 @@
 package br.com.fiap.challenge.service;
 
-import br.com.fiap.challenge.model.*;
+import br.com.fiap.challenge.dao.AlunoDAO;
+import br.com.fiap.challenge.dao.ProfessorDAO;
+import br.com.fiap.challenge.model.Aluno;
+import br.com.fiap.challenge.model.Aula;
+import br.com.fiap.challenge.model.Professor;
+import br.com.fiap.challenge.model.Reserva;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SistemaReserva {
-    private List<Aluno> alunos;
-    private List<Professor> professores;
-    private List<Aula> aulas;
-    private List<Reserva> reservas;
-    private List<Sala> salas;
+    private AlunoDAO alunoDAO;
+    private ProfessorDAO professorDAO;
 
     public SistemaReserva() {
-        this.alunos = new ArrayList<>();
-        this.professores = new ArrayList<>();
-        this.aulas = new ArrayList<>();
-        this.reservas = new ArrayList<>();
-        this.salas = new ArrayList<>();
+        this.alunoDAO = new AlunoDAO();
+        this.professorDAO = new ProfessorDAO();
     }
 
+    // Adicionar aluno utilizando o DAO
     public void adicionarAluno(Aluno aluno) {
-        alunos.add(aluno);
+        alunoDAO.criarAluno(aluno);
     }
 
+    // Adicionar professor utilizando o DAO
     public void adicionarProfessor(Professor professor) {
-        professores.add(professor);
+        professorDAO.criarProfessor(professor);
     }
 
-    public void adicionarAula(Aula aula) {
-        aulas.add(aula);
-    }
-
-    public void adicionarSala(Sala sala) {
-        salas.add(sala);
-    }
-
+    // Método para marcar uma reserva (será ajustado para uma futura camada de reserva DAO)
     public void fazerReserva(Aluno aluno, Aula aula, LocalDateTime dataHora) {
         Reserva reserva = new Reserva(aluno, aula, dataHora);
-        reservas.add(reserva);
-        aula.adicionarReserva(reserva);
         System.out.println("Reserva realizada com sucesso para " + aluno.getNome() + " na aula " + aula.getTitulo() + " em " + dataHora);
     }
 
-    public List<Aluno> getAlunos() {
-        return alunos;
+    // Buscar todos os alunos (listagem)
+    public List<Aluno> listarAlunos() {
+        return alunoDAO.listarAlunos();
     }
 
-    public List<Professor> getProfessores() {
-        return professores;
-    }
-
-    public List<Aula> getAulas() {
-        return aulas;
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-
-    public List<Sala> getSalas() {
-        return salas;
+    // Buscar todos os professores (listagem)
+    public List<Professor> listarProfessores() {
+        return professorDAO.listarProfessores();
     }
 }
