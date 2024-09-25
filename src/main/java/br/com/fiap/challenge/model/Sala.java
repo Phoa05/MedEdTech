@@ -1,17 +1,23 @@
 package br.com.fiap.challenge.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Sala {
+    private int id;
     private String nome;
-    private String localizacao;
-    private List<Equipamento> equipamentos;
+    private int capacidade;
 
-    public Sala(String nome, String localizacao) {
+    public Sala() {}
+
+    public Sala(String nome, int capacidade) {
         this.nome = nome;
-        this.localizacao = localizacao;
-        this.equipamentos = new ArrayList<>();
+        this.capacidade = capacidade;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -22,19 +28,11 @@ public class Sala {
         this.nome = nome;
     }
 
-    public String getLocalizacao() {
-        return localizacao;
+    public int getCapacidade() {
+        return capacidade;
     }
 
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
-    }
-
-    public List<Equipamento> getEquipamentos() {
-        return equipamentos;
-    }
-
-    public void adicionarEquipamento(Equipamento equipamento) {
-        this.equipamentos.add(equipamento);
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
     }
 }

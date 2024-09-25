@@ -27,7 +27,7 @@ public class ConexaoDB {
             conexao = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("Conexão com o banco de dados Oracle estabelecida.");
         } catch (SQLException e) {
-            System.out.println("Erro ao conectar ao banco de dados Oracle: " + e.getMessage());
+            System.out.println("Erro ao conectar ao banco de dados: " + e.getMessage());
         }
         return conexao;
     }

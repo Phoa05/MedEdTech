@@ -83,21 +83,22 @@ public class AlunoDAO {
     }
 
     // Método para atualizar os dados de um aluno
-    public void atualizarAluno(Aluno aluno, int id) {
+    public void atualizarAluno(int id, Aluno aluno) {
+        String sql = "UPDATE alunos SET nome = ?, email = ?, pontos = ?, nivel = ? WHERE id = ?";
+
+        // Obtendo a conexão
         try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement ps = conn.prepareStatement(UPDATE_ALUNO)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            ps.setString(1, aluno.getNome());
-            ps.setString(2, aluno.getEmail());
-            ps.setInt(3, aluno.getPontos());
-            ps.setInt(4, aluno.getNivel());
-            ps.setInt(5, id);
-            ps.executeUpdate();
+            stmt.setString(1, aluno.getNome());
+            stmt.setString(2, aluno.getEmail());
+            stmt.setInt(3, aluno.getPontos());
+            stmt.setInt(4, aluno.getNivel());
+            stmt.setInt(5, id);  // Usando o ID para identificar o aluno a ser atualizado
 
-            System.out.println("Aluno atualizado com sucesso!");
-
+            stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Erro ao atualizar aluno: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

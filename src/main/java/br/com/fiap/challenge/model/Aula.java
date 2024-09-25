@@ -1,26 +1,31 @@
 package br.com.fiap.challenge.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 public class Aula {
+    private int id;
     private String titulo;
     private String descricao;
+    private LocalDate data;
     private Professor professor;
-    private List<Reserva> reservas;
-    private Horario horario;
     private Sala sala;
 
-    public Aula(String titulo, String descricao, Professor professor, Horario horario, Sala sala) {
+    // Construtor
+    public Aula(String titulo, String descricao, LocalDate data, Professor professor, Sala sala) {
         this.titulo = titulo;
         this.descricao = descricao;
+        this.data = data;
         this.professor = professor;
-        this.horario = horario;
         this.sala = sala;
-        this.reservas = new ArrayList<>();
     }
 
-    public Aula(String titulo, String descricao, Professor prof1) {
+    // Getters e Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -39,6 +44,14 @@ public class Aula {
         this.descricao = descricao;
     }
 
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
     public Professor getProfessor() {
         return professor;
     }
@@ -47,31 +60,11 @@ public class Aula {
         this.professor = professor;
     }
 
-    public Horario getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Horario horario) {
-        this.horario = horario;
-    }
-
     public Sala getSala() {
         return sala;
     }
 
     public void setSala(Sala sala) {
         this.sala = sala;
-    }
-
-    public void adicionarReserva(Reserva reserva) {
-        reservas.add(reserva);
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
     }
 }

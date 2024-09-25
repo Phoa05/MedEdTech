@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Professor extends Usuario {
+    int id;
     private List<Aula> aulas;
 
     public Professor(String nome, String email) {
@@ -21,6 +22,10 @@ public class Professor extends Usuario {
 
     public void setAulas(List<Aula> aulas) {
         this.aulas = aulas;
+    }
+
+    public int getId() {
+        return id;
     }
 }
 

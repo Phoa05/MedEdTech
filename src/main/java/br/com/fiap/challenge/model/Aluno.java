@@ -1,6 +1,7 @@
 package br.com.fiap.challenge.model;
 
 public class Aluno extends Usuario {
+    int id;
     private int pontos;
     private int nivel;
 
@@ -34,6 +35,10 @@ public class Aluno extends Usuario {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+
+    public int getId() {
+        return id;
     }
 }
 
